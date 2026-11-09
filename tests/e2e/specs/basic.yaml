@@ -1,0 +1,41 @@
+name: basic
+version: "1.2.3"
+args:
+  - verbose:
+      short: v
+      long: verbose
+      multiple_occurrences: true
+  - quiet:
+      short: q
+      multiple_occurrences: false
+  - count:
+      short: c
+      arg_action: count
+  - enable:
+      long: enable
+      arg_action: set_true
+  - disable:
+      long: disable
+      arg_action: set_false
+  - host:
+      long: host
+      takes_value: true
+  - port:
+      long: port
+      takes_value: true
+      default_value: "80"
+  - mode:
+      long: mode
+      possible_values: [herbivore, carnivore, omnivore]
+  - token:
+      long: token
+      takes_value: true
+      env: E2E_TOKEN
+  - tag:
+      long: tag
+      takes_value: true
+      multiple_occurrences: true
+  - cmd:
+      help: command
+  - rest:
+      multiple_values: true

@@ -19,3 +19,7 @@ jobs:
     - name: build
       run: |
         nix build ".#default" -L --print-out-paths --no-link
+    - name: e2e
+      run: |
+        system=$(nix eval --raw --impure --expr builtins.currentSystem)
+        nix build ".#checks.${system}.e2e" -L --no-link

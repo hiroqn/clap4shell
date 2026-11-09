@@ -98,13 +98,8 @@ pub(crate) fn shell_single_quote(value: &str) -> String {
 }
 
 pub(crate) fn completion_wrapper(script: &str) -> String {
-    let mut escaped = String::with_capacity(script.len());
-    for ch in script.chars() {
-        match ch {
-            '\\' => escaped.push_str("\\\\"),
-            '\'' => escaped.push_str("\\'"),
-            _ => escaped.push(ch),
-        }
-    }
-    format!("echo $'{escaped}'\nexit 0\n")
+    // `echo $'...'` is not POSIX, and zsh's echo interprets the backslash
+    // escapes left in the expanded text. Single quotes keep the script intact
+    // in bash, zsh, and dash.
+    format!("printf '%s' {}\nexit 0\n", shell_single_quote(script))
 }

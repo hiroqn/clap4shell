@@ -1,0 +1,12 @@
+name: group
+args:
+  - json:
+      long: json
+      action: set_true
+  - yaml:
+      long: yaml
+      action: set_true
+groups:
+  - format:
+      args: [json, yaml]
+      multiple: false

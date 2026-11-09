@@ -1,0 +1,19 @@
+name: subcommands
+args:
+  - verbose:
+      short: v
+subcommands:
+  - ls:
+      args:
+        - all:
+            short: a
+        - entity:
+            multiple_values: true
+  - remote:
+      subcommands:
+        - add:
+            args:
+              - name:
+                  required: true
+              - url:
+                  required: true

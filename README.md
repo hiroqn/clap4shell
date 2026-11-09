@@ -89,11 +89,24 @@ Completion
 clap4shell clap4shell-completion bash -o ./bash-completion.sh < definition.yaml
 ```
 
-When "-o" is omitted, it prints an echo command that prints the script, followed by `exit 0`. Therefore this feature can be used transparently even if the output of `clap4shell` is passed to `eval`.
+When "-o" is omitted, it prints a `printf` command that prints the script, followed by `exit 0`. Therefore this feature can be used transparently even if the output of `clap4shell` is passed to `eval`.
 
 ```
 ./foo.sh clap4shell-completion > ~/.zsh/_foo.sh
 ```
+
+Testing
+----
+
+End-to-end tests live in `tests/e2e` and are written with [bats](https://github.com/bats-core/bats-core).
+They `eval` the output of `clap4shell` in bash, zsh and dash, and check the resulting variables.
+
+```sh
+nix develop -c bash -c 'cargo build && PATH=$PWD/target/debug:$PATH tests/e2e/run.sh'
+nix flake check -L  # runs the same suite against the nix build
+```
+
+Set `E2E_SHELLS` to choose the shells, e.g. `E2E_SHELLS=dash tests/e2e/run.sh`.
 
 Notes
 ----

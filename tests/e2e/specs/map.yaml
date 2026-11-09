@@ -1,0 +1,9 @@
+name: map
+args:
+  host:
+    long: host
+    takes_value: true
+subcommands:
+  ls:
+    args:
+      entity: {}

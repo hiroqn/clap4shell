@@ -43,13 +43,37 @@
       devShells = forAllSystems (pkgs: {
         default = pkgs.mkShell {
           inputsFrom = [ (mkPackage pkgs) ];
-          packages = [
-            pkgs.cargo
-            pkgs.rustc
-            pkgs.clippy
-            pkgs.rustfmt
+          packages = with pkgs; [
+            cargo
+            rustc
+            clippy
+            rustfmt
+            bats
+            bash
+            dash
+            zsh
           ];
         };
+      });
+      checks = forAllSystems (pkgs: {
+        e2e =
+          pkgs.runCommand "clap4shell-e2e"
+            {
+              nativeBuildInputs = [
+                (mkPackage pkgs)
+                pkgs.bats
+                pkgs.bash
+                pkgs.dash
+                pkgs.zsh
+              ];
+            }
+            ''
+              mkdir -p src/tests
+              cp -r ${./tests/e2e} src/tests/e2e
+              cp ${./example.sh} src/example.sh
+              bash src/tests/e2e/run.sh
+              touch $out
+            '';
       });
     };
 }

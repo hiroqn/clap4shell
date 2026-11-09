@@ -1,0 +1,6 @@
+name: required
+args:
+  - host:
+      long: host
+      takes_value: true
+      required: true

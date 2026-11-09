@@ -1,0 +1,73 @@
+name: clap4
+allow_negative_numbers: true
+args:
+  - host:
+      long: host
+      takes_value: true
+      aliases: [hostname]
+  - msg:
+      long: msg
+      allow_hyphen_values: true
+  - preset:
+      long: preset
+      default_values: ["it's", "b"]
+  - color:
+      long: color
+      num_args: 0..=1
+      default_missing_value: auto
+      default_value: never
+  - pair:
+      long: pair
+      num_args: 2
+  - item:
+      long: item
+      num_args: "2..=4"
+  - legacy:
+      long: legacy
+      number_of_values: 2
+  - bounded:
+      long: bounded
+      min_values: 1
+      max_values: 2
+  - tag:
+      long: tag
+      action: append
+  - hosts:
+      long: hosts
+      value_delimiter: ","
+  - on:
+      long: on
+      value_parser: bool
+  - small:
+      long: small
+      value_parser: u8
+  - offset:
+      long: offset
+      value_parser: i8
+  - ratio:
+      long: ratio
+      value_parser: f64
+  - mode:
+      long: mode
+      possible_values: [herbivore, carnivore]
+      ignore_case: true
+  - name:
+      long: name
+      takes_value: true
+      requires: host
+  - json:
+      long: json
+      action: set_true
+      conflicts_with: yaml
+  - yaml:
+      long: yaml
+      action: set_true
+  - verbose:
+      short: v
+      global: true
+  - config:
+      long: config
+      global: true
+      default_value: localhost
+subcommands:
+  - ls: {}
